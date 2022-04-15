@@ -1,0 +1,58 @@
+<!-- Using template inheritance, the general parts of the website are gotten from the layout.html file -->
+{% extends "layout.html"%}
+{% block content%}
+    <div class="content-section">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                
+                <div class="form-group pt-2">
+                    {{ form.email.label(class = "form-control-label pb-3") }}
+                    {% if form.email.errors %}
+                        {{ form.email(class = "form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class = "form-control form-control-lg") }}
+                    {% endif %}                </div>
+                <div class="form-group pt-2">
+                    {{ form.password.label(class = "form-control-label pb-3") }}
+                    {% if form.password.errors %}
+                        {{ form.password(class = "form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span> {{ error }} </span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class = "form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <!-- div for "remember me" -->
+                <div class="form-check pt-2">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <!-- login button -->
+            <div class="form-group pt-3 pb-2">
+                {{ form.submit(class = "btn btn-outline-info") }}
+            </div>
+            <!-- forgot password -->
+            <small class="text-muted">
+                <a href="#">Forgot Password?</a>
+            </small>
+        </form>
+    </div>
+    <!-- creating a div that redirects you to the login page if you already have an account -->
+    <div class="border-top pt-2">
+        <small class="text-muted">
+            Want to Create an Account? 
+            <a class="ml-2" href="{{ url_for('register') }}">Sign Up Now!</a>
+        </small>
+    </div>
+{% endblock content%}
